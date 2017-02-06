@@ -128,6 +128,7 @@ ngx_ssl_init(ngx_log_t *log)
     OPENSSL_config(NULL);
 
     SSL_library_init();
+    FIPS_mode_set(1);
     SSL_load_error_strings();
 
     OpenSSL_add_all_algorithms();

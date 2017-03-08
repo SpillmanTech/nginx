@@ -122,7 +122,10 @@ ngx_ssl_init(ngx_log_t *log)
 #endif
 
     SSL_library_init();
-    FIPS_mode_set(1);
+    if ( FIPS_mode_set(1) != 0 ) {
+        ngx_ssl_error(NGX_LOG_ALERT, log, 0, "FIPS_mode_set(1) failed");
+        return NGX_ERROR;
+    }
     SSL_load_error_strings();
 
     OpenSSL_add_all_algorithms();
